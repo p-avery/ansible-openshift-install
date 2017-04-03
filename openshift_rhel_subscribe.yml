@@ -1,0 +1,4 @@
+- hosts: all
+  become: yes
+  roles:
+    - openshift-ansible/roles/rhel_subscribe
