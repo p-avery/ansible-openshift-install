@@ -1,2 +1,3 @@
 - src: https://github.com/openshift/openshift-ansible.git
   version: origin/master
+  name: openshift-ansible
