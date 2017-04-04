@@ -1,4 +1,5 @@
 - hosts: all
   become: yes
+  become_user: root
   roles:
-    - openshift-ansible/roles/rhel_subscribe
+  - ansible-role-rhn
