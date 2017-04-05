@@ -4,10 +4,36 @@
   when: hostvars[item].ansible_default_ipv4.address is defined
   with_items: "{{ play_hosts }}"
 
-- name: install PyYAML
+- name: install packages
   yum:
-    name: PyYAML
+    name: "{{ item }}"
     state: latest
+  with_items:
+  - https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+  - PyYAML
+  - python-devel
+  - openssl-devel
+
+- name: install more packages
+  yum:
+    name: "{{ item }}"
+    state: latest
+  with_items:
+  - python-pip
+
+- name: pip upgrade setuptools and pip
+  pip:
+    name: "{{ item }}"
+  with_items:
+  - pip
+  - setuptools
+
+- name: install ansible and ansible-container
+  pip:
+    name: "{{ item }}"
+  with_items:
+  - ansible
+  - ansible-container
 
 - name: enable selinux
   selinux:
