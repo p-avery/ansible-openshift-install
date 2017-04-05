@@ -24,6 +24,7 @@
 - name: pip upgrade setuptools and pip
   pip:
     name: "{{ item }}"
+    state: latest
   with_items:
   - pip
   - setuptools
@@ -31,6 +32,7 @@
 - name: install ansible and ansible-container
   pip:
     name: "{{ item }}"
+    state: latest
   with_items:
   - ansible
   - ansible-container
