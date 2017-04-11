@@ -1,0 +1,32 @@
+---
+nodes:
+  - name: master1
+    role: os-master
+    app_name: os-demo1
+    instance_type: t2.large
+    image: ami-85241def #rhel7
+    disk_size: 90
+  - name: node1
+    role: os-node
+    app_name: os-demo1
+    instance_type: t2.large
+    image: ami-85241def #rhel7
+    disk_size: 30
+  - name: node2
+    role: os-node
+    app_name: os-demo1
+    instance_type: t2.large
+    image: ami-85241def #rhel7
+    disk_size: 30
+  - name: node3
+    role: os-node
+    app_name: os-demo1
+    instance_type: t2.large
+    image: ami-85241def #rhel7
+    disk_size: 30
+  - name: node4
+    role: os-node
+    app_name: os-demo1
+    instance_type: t2.large
+    image: ami-85241def #rhel7
+    disk_size: 30
