@@ -18,6 +18,7 @@
   - atomic-openshift-utils
   - atomic-openshift-excluder
   - atomic-openshift-docker-excluder
+  ignore_errors: true
 
 - name: install more packages
   yum:
