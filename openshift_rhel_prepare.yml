@@ -1,4 +1,4 @@
-- hosts: all
+- hosts: OSEv3
   become: yes
   become_user: root
   roles:
