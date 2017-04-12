@@ -5,28 +5,72 @@ nodes:
     app_name: os-demo1
     instance_type: t2.large
     image: ami-85241def #rhel7
-    disk_size: 90
+    volumes:
+      - device_name: /dev/sda1
+        volume_type: gp2
+        volume_size: 30
+        delete_on_termination: true
+      - device_name: /dev/sdb
+        volume_type: gp2
+        volume_size: 30
+        delete_on_termination: true
+      - device_name: /dev/sdc
+        volume_type: gp2
+        volume_size: 30
+        delete_on_termination: true
   - name: node1
     role: os-node
     app_name: os-demo1
     instance_type: t2.large
     image: ami-85241def #rhel7
-    disk_size: 30
+    volumes:
+      - device_name: /dev/sda1
+        volume_type: gp2
+        volume_size: 30
+        delete_on_termination: true
+      - device_name: /dev/sdb
+        volume_type: gp2
+        volume_size: 30
+        delete_on_termination: true
   - name: node2
     role: os-node
     app_name: os-demo1
     instance_type: t2.large
     image: ami-85241def #rhel7
-    disk_size: 30
+    volumes:
+      - device_name: /dev/sda1
+        volume_type: gp2
+        volume_size: 30
+        delete_on_termination: true
+      - device_name: /dev/sdb
+        volume_type: gp2
+        volume_size: 30
+        delete_on_termination: true
   - name: node3
     role: os-node
     app_name: os-demo1
     instance_type: t2.large
     image: ami-85241def #rhel7
-    disk_size: 30
+    volumes:
+      - device_name: /dev/sda1
+        volume_type: gp2
+        volume_size: 30
+        delete_on_termination: true
+      - device_name: /dev/sdb
+        volume_type: gp2
+        volume_size: 30
+        delete_on_termination: true
   - name: node4
     role: os-node
     app_name: os-demo1
     instance_type: t2.large
     image: ami-85241def #rhel7
-    disk_size: 30
+    volumes:
+      - device_name: /dev/sda1
+        volume_type: gp2
+        volume_size: 30
+        delete_on_termination: true
+      - device_name: /dev/sdb
+        volume_type: gp2
+        volume_size: 30
+        delete_on_termination: true
