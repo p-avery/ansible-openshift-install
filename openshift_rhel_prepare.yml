@@ -1,4 +1,4 @@
-- hosts: OSEv3
+- hosts: nodes
   become: yes
   become_user: root
   roles:
