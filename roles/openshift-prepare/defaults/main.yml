@@ -1,2 +1,2 @@
 ---
-docker_storage_mount: /dev/sdc
+docker_storage_mount: sdc
