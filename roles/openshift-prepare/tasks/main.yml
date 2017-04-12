@@ -13,6 +13,11 @@
   - PyYAML
   - python-devel
   - openssl-devel
+  - iptables-services
+  - bridge-utils
+  - atomic-openshift-utils
+  - atomic-openshift-excluder
+  - atomic-openshift-docker-excluder
 
 - name: install more packages
   yum:
@@ -29,13 +34,13 @@
   - pip
   - setuptools
 
-- name: install ansible and ansible-container
-  pip:
-    name: "{{ item }}"
-    state: latest
-  with_items:
-  - ansible
-  - ansible-container
+#- name: install ansible and ansible-container
+#  pip:
+#    name: "{{ item }}"
+#    state: latest
+#  with_items:
+#  - ansible
+#  - ansible-container
 
 - name: enable selinux
   selinux:
@@ -61,5 +66,52 @@
   become: no
   when: inventory_hostname != '127.0.0.1' or hostvars[inventory_hostname].ansible_host != '127.0.0.1'
 
+- name: unexclude atomic-openshift package for the duration of the install
+  command: atomic-openshift-excluder unexclude
+
+- name: install Docker
+  yum: name=docker state=installed update_cache=yes
+  register: dockerInstalled
+  notify:
+  - Start Docker
+
+- meta: flush_handlers
+
+- name: Insecure Registry Config
+  lineinfile: dest=/etc/sysconfig/docker  regexp="^OPTIONS" line=OPTIONS='--selinux-enabled --insecure-registry 172.30.0.0/16 --log-opt max-size=1M --log-opt max-file=3' backup=yes backrefs=yes state=present
+  register: dockerConfigUpdated
+
+#- name:  Create Docker Storage Config
+#  when: dockerInstalled|success
+#  shell: echo "DEVS={{ docker_storage_mount}}" > /etc/sysconfig/docker-storage-setup; echo "VG=docker-vg" >> /etc/sysconfig/docker-storage-setup
+#  args:
+#    creates: /etc/sysconfig/docker-storage-setup
+
+- name: Create Docker Storage Config
+  blockinfile:
+    dest: /etc/sysconfig/docker-storage-setup
+    create: yes
+    content: |
+      DEVS={{ docker_storage_mount}}
+      VG=docker-vg
+  register: dockerStorageConfigFileCreated
+  notify:
+  - Stop Docker
+  - Clean Docker Data
+
+- meta: flush_handlers
+
+- name: Check if LVS exists
+  shell: lvs | grep docker-pool | awk '{ print $1}'
+  register: dockerpoolLVS
+
+- name: Docker Storage Setup
+  when: dockerpoolLVS.stdout != "docker-pool" and dockerStorageConfigFileCreated|success
+  command: docker-storage-setup
+  register: dockerStorageSetupComplete
+  notify:
+  - Stop Docker
+  - Clean Docker Data
+  - Start Docker
 
 
