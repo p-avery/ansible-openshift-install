@@ -10,11 +10,11 @@ nodes:
         volume_type: gp2
         volume_size: 30
         delete_on_termination: true
-      - device_name: /dev/sdb
+      - device_name: /dev/sdb1
         volume_type: gp2
         volume_size: 30
         delete_on_termination: true
-      - device_name: /dev/sdc
+      - device_name: /dev/sdc1
         volume_type: gp2
         volume_size: 30
         delete_on_termination: true
@@ -28,7 +28,7 @@ nodes:
         volume_type: gp2
         volume_size: 30
         delete_on_termination: true
-      - device_name: /dev/sdb
+      - device_name: /dev/sdb1
         volume_type: gp2
         volume_size: 30
         delete_on_termination: true
@@ -42,7 +42,7 @@ nodes:
         volume_type: gp2
         volume_size: 30
         delete_on_termination: true
-      - device_name: /dev/sdb
+      - device_name: /dev/sdb1
         volume_type: gp2
         volume_size: 30
         delete_on_termination: true
@@ -56,7 +56,7 @@ nodes:
         volume_type: gp2
         volume_size: 30
         delete_on_termination: true
-      - device_name: /dev/sdb
+      - device_name: /dev/sdb1
         volume_type: gp2
         volume_size: 30
         delete_on_termination: true
@@ -70,7 +70,7 @@ nodes:
         volume_type: gp2
         volume_size: 30
         delete_on_termination: true
-      - device_name: /dev/sdb
+      - device_name: /dev/sdb1
         volume_type: gp2
         volume_size: 30
         delete_on_termination: true

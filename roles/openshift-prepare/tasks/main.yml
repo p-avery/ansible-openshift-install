@@ -82,12 +82,6 @@
   lineinfile: dest=/etc/sysconfig/docker  regexp="^OPTIONS" line=OPTIONS='--selinux-enabled --insecure-registry 172.30.0.0/16 --log-opt max-size=1M --log-opt max-file=3' backup=yes backrefs=yes state=present
   register: dockerConfigUpdated
 
-#- name:  Create Docker Storage Config
-#  when: dockerInstalled|success
-#  shell: echo "DEVS={{ docker_storage_mount}}" > /etc/sysconfig/docker-storage-setup; echo "VG=docker-vg" >> /etc/sysconfig/docker-storage-setup
-#  args:
-#    creates: /etc/sysconfig/docker-storage-setup
-
 - name: Create Docker Storage Config
   blockinfile:
     dest: /etc/sysconfig/docker-storage-setup
@@ -96,6 +90,7 @@
       DEVS={{ docker_storage_mount}}
       VG=docker-vg
   register: dockerStorageConfigFileCreated
+  when: docker_storage_mount in ansible_devices
   notify:
   - Stop Docker
   - Clean Docker Data
@@ -107,9 +102,9 @@
   register: dockerpoolLVS
 
 - name: Docker Storage Setup
-  when: dockerpoolLVS.stdout != "docker-pool" and dockerStorageConfigFileCreated|success
   command: docker-storage-setup
   register: dockerStorageSetupComplete
+  when: dockerpoolLVS.stdout != "docker-pool" and dockerStorageConfigFileCreated|success
   notify:
   - Stop Docker
   - Clean Docker Data
