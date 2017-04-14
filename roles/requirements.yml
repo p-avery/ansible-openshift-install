@@ -1,4 +1,5 @@
 - src: https://github.com/oatakan/ansible-role-rhn
+  version: origin/master
 
 - src: https://github.com/oatakan/ansible-role-ec2
   version: origin/master
