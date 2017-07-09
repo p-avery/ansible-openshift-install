@@ -76,8 +76,6 @@
   notify:
   - Start Docker
 
-- meta: flush_handlers
-
 - name: Insecure Registry Config
   lineinfile: dest=/etc/sysconfig/docker  regexp="^OPTIONS" line=OPTIONS='--selinux-enabled --insecure-registry 172.30.0.0/16 --log-opt max-size=1M --log-opt max-file=3' backup=yes backrefs=yes state=present
   register: dockerConfigUpdated
@@ -94,8 +92,6 @@
   notify:
   - Stop Docker
   - Clean Docker Data
-
-- meta: flush_handlers
 
 - name: Check if LVS exists
   shell: lvs | grep docker-pool | awk '{ print $1}'
