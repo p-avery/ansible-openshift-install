@@ -6,15 +6,15 @@ nodes:
     instance_type: t2.large
     image: ami-85241def #rhel7
     volumes:
-      - device_name: /dev/sda1
+      - device_name: /dev/xvda
         volume_type: gp2
         volume_size: 30
         delete_on_termination: true
-      - device_name: /dev/sdb1
+      - device_name: /dev/xvdb
         volume_type: gp2
         volume_size: 30
         delete_on_termination: true
-      - device_name: /dev/sdc1
+      - device_name: /dev/xvdc
         volume_type: gp2
         volume_size: 30
         delete_on_termination: true
@@ -24,11 +24,11 @@ nodes:
     instance_type: t2.large
     image: ami-85241def #rhel7
     volumes:
-      - device_name: /dev/sda1
+      - device_name: /dev/xvda
         volume_type: gp2
         volume_size: 30
         delete_on_termination: true
-      - device_name: /dev/sdb1
+      - device_name: /dev/xvdb
         volume_type: gp2
         volume_size: 30
         delete_on_termination: true
@@ -38,11 +38,11 @@ nodes:
     instance_type: t2.large
     image: ami-85241def #rhel7
     volumes:
-      - device_name: /dev/sda1
+      - device_name: /dev/xvda
         volume_type: gp2
         volume_size: 30
         delete_on_termination: true
-      - device_name: /dev/sdb1
+      - device_name: /dev/xvdb
         volume_type: gp2
         volume_size: 30
         delete_on_termination: true
@@ -52,11 +52,11 @@ nodes:
     instance_type: t2.large
     image: ami-85241def #rhel7
     volumes:
-      - device_name: /dev/sda1
+      - device_name: /dev/xvda
         volume_type: gp2
         volume_size: 30
         delete_on_termination: true
-      - device_name: /dev/sdb1
+      - device_name: /dev/xvdb
         volume_type: gp2
         volume_size: 30
         delete_on_termination: true
@@ -66,11 +66,11 @@ nodes:
     instance_type: t2.large
     image: ami-85241def #rhel7
     volumes:
-      - device_name: /dev/sda1
+      - device_name: /dev/xvda
         volume_type: gp2
         volume_size: 30
         delete_on_termination: true
-      - device_name: /dev/sdb1
+      - device_name: /dev/xvdb
         volume_type: gp2
         volume_size: 30
         delete_on_termination: true
