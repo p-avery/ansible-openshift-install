@@ -1,6 +1,5 @@
-- hosts: nodes
+- hosts: tag_app_os_demo1
   become: yes
-  become_user: root
   roles:
   - ansible-role-rhn
   - openshift-prepare
