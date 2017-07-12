@@ -97,8 +97,13 @@
   register: dockerStorageSetupComplete
   when: dockerpoolLVS.stdout != "docker-pool" and dockerStorageConfigFileCreated|success and docker_storage_mount in ansible_devices
   notify:
-  - Start Docker
-  - Clean Docker Data
   - Stop Docker
+  - Clean Docker Data
+
+- name: Start and enable docker
+  service:
+    name: docker
+    state: started
+    enabled: yes
 
 
