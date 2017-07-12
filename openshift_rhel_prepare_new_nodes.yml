@@ -2,5 +2,9 @@
   become: yes
   roles:
   - hosts-file
+
+- hosts: new_nodes
+  become: yes
+  roles:
   - ansible-role-rhn
   - openshift-prepare
