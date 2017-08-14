@@ -1,0 +1,14 @@
+- hosts: masters
+  become: yes
+  tasks:
+    - name: create a system account
+      shell: oc create sa pv-recycler-controller
+      run_once: yes
+
+    - name: add priviliged
+      shell: oc adm policy add-scc-to-user privileged -z pv-recycler-controller
+      run_once: yes
+
+    - name: add role to system account
+      shell: oc adm policy add-cluster-role-to-user system:openshift:controller:pv-recycler-controller pv-recycler-controller
+      run_once: yes
