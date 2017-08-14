@@ -1,0 +1,38 @@
+---
+
+-- docker
+- fstab changes
+
+remove /dev/docker_vg/docker_lv /docker from fstab
+unmount /docker
+command: lvremove -f docker_vg/docker_lv
+command: vgremove -f docker_vg
+vars:
+  docker_raw_disk: /dev/sdd
+command: pvremove "{{ docker_raw_disk }}1"
+command: parted "{{ docker_raw_disk }}" rm 1
+command: dd if=/dev/zero of="{{ docker_raw_disk }}" bs=512 count=1
+command: rmdir -fr /docker
+
+-- var_log
+# can we use syncronize module here?
+command: rsync -a --stats --delete /var/log//var/log/logose/
+#test it's done - syncronize module does that?
+# add to fstab
+change mount point /dev/var_logose_vg/var_logose_lv /var/logose xfs default 1 2
+to
+/dev/var_logose_vg/var_logose_lv /var/log xfs default 1 2
+delete all files under /var/log/*
+rm -fr /var/log*
+reboot
+rmdir /var/logose
+
+-- nfs mount (needed?)
+edit /etc/export on nfs node and the new_node
+command: exportfs -r
+
+
+
+
+
+

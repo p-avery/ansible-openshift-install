@@ -1,4 +1,6 @@
 ---
+- include: storage_prep.yml
+
 - name: install packages
   yum:
     name: "{{ item }}"
@@ -99,6 +101,15 @@
   notify:
   - Stop Docker
   - Clean Docker Data
-  - Start Docker
+
+- name: Start and enable docker
+  service:
+    name: docker
+    state: started
+    enabled: yes
+
+
+
+
 
 
