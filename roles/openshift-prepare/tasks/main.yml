@@ -38,18 +38,11 @@
   - pip
   - setuptools
 
-#- name: install ansible and ansible-container
-#  pip:
-#    name: "{{ item }}"
-#    state: latest
-#  with_items:
-#  - ansible
-#  - ansible-container
-
 - name: enable selinux
   selinux:
     policy: targeted
     state: enforcing
+  register: selinux
 
 - name: Reboot server
   shell: "sleep 3; /usr/sbin/shutdown -r now"
@@ -58,17 +51,18 @@
   failed_when: false
   changed_when: true
   ignore_errors: true
-  when: ansible_ssh_host != '127.0.0.1'
+  when: ansible_ssh_host != '127.0.0.1' and selinux.changed
 
 - name: Wait for reboot to start
   pause:
     seconds: 5
+  when: selinux.changed
 
 - name: waiting for system to come online
   wait_for: host="{{ hostvars[inventory_hostname].ansible_host | default(inventory_hostname) }}" port="{{ hostvars[inventory_hostname].ansible_ssh_port | default('22') }}" search_regex=OpenSSH
   delegate_to: 127.0.0.1
   become: no
-  when: inventory_hostname != '127.0.0.1' or hostvars[inventory_hostname].ansible_host != '127.0.0.1'
+  when: inventory_hostname != '127.0.0.1' or hostvars[inventory_hostname].ansible_host != '127.0.0.1' and selinux.changed
 
 - name: unexclude atomic-openshift package for the duration of the install
   command: atomic-openshift-excluder unexclude
