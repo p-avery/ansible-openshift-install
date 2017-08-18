@@ -10,10 +10,18 @@
   - openssl-devel
   - iptables-services
   - bridge-utils
+  ignore_errors: true
+
+- name: install packages atomic
+  yum:
+    name: "{{ item }}"
+    state: latest
+  with_items:
   - atomic-openshift-utils
   - atomic-openshift-excluder
   - atomic-openshift-docker-excluder
   ignore_errors: true
+  when: ansible_distribution == 'RedHat'
 
 - name: install more packages
   yum:
