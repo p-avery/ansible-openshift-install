@@ -72,6 +72,7 @@
 
 - name: unexclude atomic-openshift package for the duration of the install
   command: atomic-openshift-excluder unexclude
+  when: ansible_distribution == 'RedHat'
 
 - name: install Docker
   yum: name=docker state=installed update_cache=yes
