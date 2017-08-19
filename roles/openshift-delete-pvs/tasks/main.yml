@@ -1,0 +1,6 @@
+---
+- name: delete pvs in openshift
+  shell: oc delete pv {{ share_prefix}}-{{ item }}.yml
+  with_sequence: start="{{ dir_count_start }}" end="{{ dir_count_end }}"
+  ignore_errors: yes
+  when: dir_count_start is defined and dir_count_end is defined
