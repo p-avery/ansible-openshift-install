@@ -17,3 +17,8 @@
   shell: oc create -f /tmp/ospvcreate/{{ share_prefix}}-{{ item }}.yml
   with_sequence: start="{{ dir_count_start }}" end="{{ dir_count_end }}"
   when: dir_count_start is defined and dir_count_end is defined
+
+- name: delete temp directory
+  file:
+    path: /tmp/ospvcreate
+    state: absent
