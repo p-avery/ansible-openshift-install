@@ -1,0 +1,8 @@
+---
+share_prefix: os-d1
+dir_count_start: 1
+dir_count_end: 20
+base_directory: /mnt/vault/os-dev
+nfs_server: 192.168.1.103
+capacity: 1Gi
+reclaim_policy: Recycle

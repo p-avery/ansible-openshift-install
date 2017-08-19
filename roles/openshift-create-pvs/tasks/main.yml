@@ -1,0 +1,19 @@
+---
+- name: create temp directory
+  file:
+    path: /tmp/ospvcreate
+    state: directory
+    mode: 0755
+
+- name: create pv templates
+  template:
+    src: nfs-pv.yml.j2
+    dest: /tmp/ospvcreate/{{ share_prefix}}-{{ item }}.yml
+    mode: 0755
+  with_sequence: start="{{ dir_count_start }}" end="{{ dir_count_end }}"
+  when: dir_count_start is defined and dir_count_end is defined
+
+- name: create pvs in openshift
+  shell: oc create -f /tmp/ospvcreate/{{ share_prefix}}-{{ item }}.yml
+  with_sequence: start="{{ dir_count_start }}" end="{{ dir_count_end }}"
+  when: dir_count_start is defined and dir_count_end is defined
