@@ -8,6 +8,6 @@ spec:
   accessModes:
   - ReadWriteOnce
   nfs:
-    path: {{ base_directory }}{{ share_prefix}}-{{ item }}
+    path: {{ base_directory }}/{{ share_prefix}}-{{ item }}
     server: {{ nfs_server }}
   persistentVolumeReclaimPolicy: {{ reclaim_policy }}
