@@ -1,4 +1,4 @@
-- hosts: masters
+- hosts: masters[0]
   become: yes
   roles:
   - openshift-create-pvs
