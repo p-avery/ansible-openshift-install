@@ -11,6 +11,7 @@
   - iptables-services
   - bridge-utils
   - NetworkManager
+  - ntp
   ignore_errors: true
 
 - name: install packages atomic
@@ -45,10 +46,14 @@
     state: enforcing
   register: selinux
 
-- name: enable NetworkManager
+- name: enable and start services
   service:
-    name: NetworkManager
+    name: "{{ item }}"
     enabled: yes
+    state: started
+  with_items:
+  - ntp
+  - NetworkManager
 
 - name: Reboot server
   shell: "sleep 3; /usr/sbin/shutdown -r now"
