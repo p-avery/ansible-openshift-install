@@ -10,6 +10,7 @@
   - openssl-devel
   - iptables-services
   - bridge-utils
+  - NetworkManager
   ignore_errors: true
 
 - name: install packages atomic
