@@ -52,7 +52,7 @@
     enabled: yes
     state: started
   with_items:
-  - ntp
+  - ntpd
   - NetworkManager
 
 - name: Reboot server
