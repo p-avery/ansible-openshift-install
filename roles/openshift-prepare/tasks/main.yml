@@ -98,6 +98,8 @@
 
 - name: Docker Storage Setup
   command: docker-storage-setup
+  environment:
+    WIPE_SIGNATURES: true
   register: dockerStorageSetupComplete
   when: dockerpoolLVS.stdout != "docker-pool" and dockerStorageConfigFileCreated|success and docker_storage_mount in ansible_devices
   notify:
