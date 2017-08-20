@@ -7,7 +7,7 @@
 - name: set hostname to inventory name
   hostname:
     name: "{{ inventory_hostname }}"
-  when: set_hostname is defined and set_hostname
+  when: set_hostname is defined and set_hostname == yes
 
 - name: build hosts file
   lineinfile: dest=/etc/hosts regexp='.*{{ item }}$' line="{{ hostvars[item].ansible_default_ipv4.address }} {{ item }}" state=present
