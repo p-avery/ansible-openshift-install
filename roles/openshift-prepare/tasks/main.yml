@@ -109,7 +109,7 @@
 - name: Read device information
   parted: device=/dev/{{ docker_storage_mount }} unit=MiB
   register: sd_info
-  when: docker_storage_mount is defined and docker_storage_wipe is defined and docker_storage_wipe == yes
+  when: docker_storage_mount is defined and docker_storage_wipe is defined and docker_storage_wipe
 
 # Remove all partitions from disk
 - name: remove all partitions
@@ -119,11 +119,11 @@
     state: absent
   with_items:
    - "{{ sd_info.partitions }}"
-  when: docker_storage_mount is defined and docker_storage_wipe is defined and docker_storage_wipe == yes
+  when: docker_storage_mount is defined and docker_storage_wipe is defined and docker_storage_wipe
 
 - name: Wipe key from the disk
   command: wipefs -o 0x1fe /dev/{{ docker_storage_mount }}
-  when: docker_storage_mount is defined and docker_storage_wipe is defined and docker_storage_wipe == yes
+  when: docker_storage_mount is defined and docker_storage_wipe is defined and docker_storage_wipe
 
 - name: Docker Storage Setup
   command: docker-storage-setup
