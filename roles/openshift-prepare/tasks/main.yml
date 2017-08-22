@@ -1,10 +1,14 @@
 ---
+- name: install epel:
+  yum:
+    name: https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+    state: present
+
 - name: install packages
   yum:
     name: "{{ item }}"
     state: latest
   with_items:
-  - https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
   - PyYAML
   - python-devel
   - openssl-devel
