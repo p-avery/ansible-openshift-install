@@ -9,6 +9,7 @@
   #oc adm policy add-scc-to-group anyuid system:authenticated
     - name: create a system account
       shell: oc create sa pv-recycler-controller -n openshift-infra
+      ignore_errors: yes
       run_once: yes
 
     - name: add priviliged
