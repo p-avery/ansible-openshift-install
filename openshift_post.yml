@@ -30,7 +30,7 @@
 
     - name: set master_config
       set_fact:
-        master_config: "{{ master_config_raw.stdout | to_yaml }}"
+        master_config: "{{ master_config_raw.stdout }}"
       tag: add_user
 
     - debug:
