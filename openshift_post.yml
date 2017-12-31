@@ -29,6 +29,6 @@
       register: master_config
 
     - name: add user
-      command: htpasswd /etc/origin/master/htpasswd {{ lookup('env','K8S_AUTH_USERNAME') }} {{ lookup('env','K8S_AUTH_PASSWORD') }}
+      command: htpasswd -c -b /etc/origin/master/htpasswd {{ lookup('env','K8S_AUTH_USERNAME') }} {{ lookup('env','K8S_AUTH_PASSWORD') }}
       when: master_config | success
       tag: add_user
