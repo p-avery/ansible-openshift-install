@@ -25,7 +25,7 @@
       run_once: yes
 
     - name: read origin master configuration data
-      command: cat /etc/origin/master/master-config.yaml | HTPasswdPasswordIdentityProvider
+      command: cat /etc/origin/master/master-config.yaml | grep 'HTPasswdPasswordIdentityProvider'
       register: master_config
 
     - name: add user
