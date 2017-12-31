@@ -27,6 +27,7 @@
     - name: read origin master configuration data
       shell: cat /etc/origin/master/master-config.yaml | grep -q 'HTPasswdPasswordIdentityProvider'
       register: master_config
+      ignore_errors: yes
 
     - name: add user
       command: htpasswd -c -b /etc/origin/master/htpasswd {{ lookup('env','K8S_AUTH_USERNAME') }} {{ lookup('env','K8S_AUTH_PASSWORD') }}
