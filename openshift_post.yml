@@ -34,7 +34,7 @@
       tag: add_user
 
     - debug:
-        var: master_config.admissionConfig
+        var: master_config
       tag: add_user
 
     - name: add user
