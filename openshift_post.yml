@@ -25,19 +25,10 @@
       run_once: yes
 
     - name: read origin master configuration data
-      command: cat /etc/origin/master/master-config.yaml
-      register: master_config_raw
-
-    - name: set master_config
-      set_fact:
-        master_config: "{{ master_config_raw.stdout }}"
-      tag: add_user
-
-    - debug:
-        var: master_config
-      tag: add_user
+      command: cat /etc/origin/master/master-config.yaml | HTPasswdPasswordIdentityProvider
+      register: master_config
 
     - name: add user
-      command: htpasswd {{ master_config.oauthConfig.identityProviders[0].provider.file }} {{ lookup('env','K8S_AUTH_USERNAME') }} {{ lookup('env','K8S_AUTH_PASSWORD') }}
-      when: master_config.oauthConfig.identityProviders[0].provider.kind == 'HTPasswdPasswordIdentityProvider'
+      command: htpasswd /etc/origin/master/htpasswd {{ lookup('env','K8S_AUTH_USERNAME') }} {{ lookup('env','K8S_AUTH_PASSWORD') }}
+      when: master_config | success
       tag: add_user
