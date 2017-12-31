@@ -31,11 +31,11 @@
 
     - name: set master_config
       set_fact:
-        master_config: "{{ master_config_raw['content'] | b64decode | to_nice_yaml }}"
+        master_config: "{{ master_config_raw['content'] | b64decode | to_yaml }}"
       tag: add_user
 
     - debug:
-        var: master_config
+        var: master_config.admissionConfig
       tag: add_user
 
     - name: add user
