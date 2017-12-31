@@ -23,3 +23,22 @@
     - name: allow non-root images
       shell: oc adm policy add-scc-to-group anyuid system:authenticated
       run_once: yes
+
+    - name: read origin master configuration data
+      slurp:
+        src: /etc/origin/master/master-config.yaml
+      register: master_config_raw
+
+    - name: set master_config
+      set_fact:
+        master_config: "{{ master_config_raw['content'] | b64decode }}"
+      tag: add_user
+
+    - debug:
+        var: master_config
+      tag: add_user
+
+    - name: add user
+      command: htpasswd {{ master_config.oauthConfig.identityProviders[0].provider.file }} {{ lookup('env','K8S_AUTH_USERNAME') }} {{ lookup('env','K8S_AUTH_PASSWORD') }}
+      when: master_config.oauthConfig.identityProviders[0].provider.kind == 'HTPasswdPasswordIdentityProvider'
+      tag: add_user
