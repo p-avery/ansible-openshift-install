@@ -99,7 +99,7 @@
     dest: /etc/sysconfig/docker-storage-setup
     create: yes
     content: |
-      DEVS={{ docker_storage_mount}}
+      DEVS={{ docker_storage_mount }}
       VG=docker-vg
   register: dockerStorageConfigFileCreated
   when: docker_storage_mount in ansible_devices
@@ -108,7 +108,7 @@
   - Clean Docker Data
 
 - name: Check if LVS exists
-  shell: lvs | grep docker-pool | awk '{ print $1}'
+  shell: lvs | grep docker-pool | awk '{ print $1 }'
   register: dockerpoolLVS
 
 - name: Read device information
